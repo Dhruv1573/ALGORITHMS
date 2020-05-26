@@ -13,13 +13,19 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+void generate_Permutation(char *in,int i)
 {
-	if(n==0)
+	if(in[i]=='\0')
+	{
+		cout<<in<<endl;
 		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+	}
+	for(int j=i;in[j]!='\0';j++)
+	{
+		swap(in[i],in[j]);
+		generate_Permutation(in,i+1);
+		swap(in[i],in[j]);
+	}
 }
 void solve()
 {
@@ -29,11 +35,9 @@ void solve()
 	{
 		lint n,k,q;
 		string s;
-		char A='A';
-		char B='B';
-		char C='C';
-		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		char in[100];
+		cin>>in;
+		generate_Permutation(in,0);	
 	}
 }
 int main()

@@ -13,13 +13,19 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+void subsequences(char *s,char *ans,int i,int j)
 {
-	if(n==0)
+	//Base case
+	if(s[i]=='\0')
+	{
+		ans[j]='\0';
+		cout<<ans<<endl;
 		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+	}
+	//Recusrsive case
+	ans[j]=s[i];
+	subsequences(s,ans,i+1,j+1);
+	subsequences(s,ans,i+1,j);
 }
 void solve()
 {
@@ -28,12 +34,12 @@ void solve()
 	testcase(t)
 	{
 		lint n,k,q;
-		string s;
-		char A='A';
-		char B='B';
-		char C='C';
-		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		//string s;
+		char ans[100],s[100];
+		cin>>s;
+		//string ans;
+		subsequences(s,ans,0,0);
+		
 	}
 }
 int main()

@@ -13,13 +13,18 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+lint wines(lint a[],lint i,lint j,lint y,lint dp[][100])
 {
-	if(n==0)
-		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+	//Base Case
+	if(i>j)
+		return 0;
+
+	if(dp[i][j]!=0)
+		return dp[i][j];
+	//Recursive Case
+	lint op1=a[i]*y+wines(a,i+1,j,y+1,dp);
+	lint op2=a[j]*y+wines(a,i,j-1,y+1,dp);
+	return dp[i][j]=max(op1,op2);
 }
 void solve()
 {
@@ -29,11 +34,14 @@ void solve()
 	{
 		lint n,k,q;
 		string s;
-		char A='A';
-		char B='B';
-		char C='C';
+		char c;
+		lint dp[100][100];
 		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		lint a[n];
+		for(int i=0;i<n;i++)
+			cin>>a[i];
+		lint y=1;
+		cout<<wines(a,0,n-1,y,dp)<<endl;
 	}
 }
 int main()

@@ -11,35 +11,28 @@ using namespace std;
 #define MAXN 100001
 #define len length()
 #define testcase(t) for(int i=0;i<t;i++)
-#define endl "\n"
-#define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+map<int,lint>dp;
+lint coins(lint n)
 {
 	if(n==0)
-		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+		return 0;
+
+	if(dp[n]!=0)
+			return dp[n];
+		//cout<<dp[n]<<endl;
+	return dp[n]=max(n,coins(n/2)+coins(n/3)+coins(n/4));
 }
 void solve()
 {
-	lint t;
-	cin>>t;
-	testcase(t)
+	int n;
+	while(scanf("%d",&n)==1) 
 	{
-		lint n,k,q;
-		string s;
-		char A='A';
-		char B='B';
-		char C='C';
-		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		lint ans=coins(n);
+		cout<<ans<<endl;
 	}
 }
 int main()
 {
-	ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
 	#ifndef ONLINE_JUDGE
 		freopen("input.txt","r",stdin);
 		freopen("output.txt","w",stdout);

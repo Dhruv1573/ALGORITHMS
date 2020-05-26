@@ -13,13 +13,34 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+lint maxProfit_TopDown(lint a[],lint n,lint dp[])
 {
 	if(n==0)
-		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+		return 0;
+	if(dp[n]!=-1)
+		return dp[n];
+	lint ans=0;
+	for(int i=1;i<=n;i++)
+	{
+		lint netprofit=a[i]+maxProfit_TopDown(a,n-i,dp);
+		ans=max(ans,netprofit);
+	}
+	return dp[n]=ans;
+}
+lint maxProfit_Bottom_Up(lint a[],lint n)
+{
+	lint dp[100]={0};
+	for(int i=1;i<=n;i++)
+	{
+		lint ans=0;
+		for(int j=1;j<=i;j++)
+		{
+			lint netprofit=a[j]+dp[i-j];
+			ans=max(ans,netprofit);
+		}
+		dp[i]=ans;
+	}
+	return dp[n];
 }
 void solve()
 {
@@ -29,11 +50,15 @@ void solve()
 	{
 		lint n,k,q;
 		string s;
-		char A='A';
-		char B='B';
-		char C='C';
+		char c;
 		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		lint a[n+1];
+		for(int i=1;i<=n;i++)
+			cin>>a[i];
+		lint dp[100];
+		for(int i=0;i<=n;i++)
+			dp[i]=-1;
+		cout<<maxProfit_Bottom_Up(a,n)<<endl;
 	}
 }
 int main()

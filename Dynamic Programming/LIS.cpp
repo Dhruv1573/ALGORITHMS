@@ -1,3 +1,4 @@
+//Longest Increasing Subsequence
 #include<bits/stdc++.h>
 using namespace std;
 #define lint long long int
@@ -13,13 +14,21 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+lint LIS(lint a[],lint n)
 {
-	if(n==0)
-		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+	lint dp[1000];
+	for(int i=0;i<n;i++)
+		dp[i]=1;
+	for(int i=1;i<=n;i++)
+	{
+		for(int j=0;j<i;j++)
+		{
+			if(a[j]<a[i])
+				dp[i]=max(1+dp[j],dp[i]);
+		}
+	}
+	int maxi=*max_element(dp,dp+n);
+	return maxi;
 }
 void solve()
 {
@@ -29,11 +38,12 @@ void solve()
 	{
 		lint n,k,q;
 		string s;
-		char A='A';
-		char B='B';
-		char C='C';
+		char c;
 		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		lint a[n];
+		for(int i=0;i<n;i++)
+			cin>>a[i];
+		cout<<LIS(a,n)<<endl;
 	}
 }
 int main()
@@ -47,3 +57,4 @@ int main()
 	
 	solve();
 }
+

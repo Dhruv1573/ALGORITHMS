@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define lint long long int
-#define f first
-#define s second
+#define first f
+#define second s
 #define pb push_back
 #define mp make_pair
 #define lb lower_bound
@@ -11,35 +11,42 @@ using namespace std;
 #define MAXN 100001
 #define len length()
 #define testcase(t) for(int i=0;i<t;i++)
-#define endl "\n"
-#define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
-{
-	if(n==0)
-		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
-}
 void solve()
 {
-	lint t;
+	int t;
 	cin>>t;
 	testcase(t)
 	{
-		lint n,k,q;
+		lint n,k;
 		string s;
-		char A='A';
-		char B='B';
-		char C='C';
-		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		char c;
+		cin>>n>>k;
+		lint a[n];
+		for(int i=0;i<n;i++)
+			cin>>a[i];
+		
+		lint max=INT_MIN,x=0,y=0;
+		lint count=0;
+		for(int i=0;i<n-k+1;i++)
+		{
+			count=0;
+			for(int j=i+1;j<i+k-1;j++)
+			{
+				if(a[j]>a[j+1]&&a[j-1]<a[j] &&j!=i &&j!=(n-1))
+					count++;
+			}
+			if(count>x)
+			{
+				x=count;
+				y=i;
+			//	y=count;
+			}
+		}
+		cout<<x+1<<" "<<y+1<<endl;
 	}
 }
 int main()
 {
-	ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
 	#ifndef ONLINE_JUDGE
 		freopen("input.txt","r",stdin);
 		freopen("output.txt","w",stdout);

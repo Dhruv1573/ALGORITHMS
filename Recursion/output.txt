@@ -1,7 +1,9 @@
-Move 1 From A to C
-Move 2 From A to B
-Move 1 From C to B
-Move 3 From A to C
-Move 1 From B to A
-Move 2 From B to C
-Move 1 From A to C
+AD
+AE
+AF
+BD
+BE
+BF
+CD
+CE
+CF

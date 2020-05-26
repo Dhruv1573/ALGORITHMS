@@ -13,13 +13,36 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
-void towerOfHanoi(lint n,char A, char C,char B)
+lint ladders_TopDown(lint n,lint k,lint dp[])
 {
+	//Base Case
 	if(n==0)
-		return;
-	towerOfHanoi(n-1,A,B,C);
-	cout<<"Move "<<n<<" From "<<A<<" to "<<C<<endl;
-	towerOfHanoi(n-1,B,C,A);
+		return 1;
+	lint ways=0;
+	if(dp[n]!=0)
+		return dp[n];
+	for(int i=1;i<=k;i++)
+	{
+		if(n-i>=0)
+		ways+=ladders_TopDown(n-i,k,dp);
+	}
+	return dp[n]=ways;
+}
+lint ladders_BottomUp(lint n,lint k)
+{
+	lint dp[100]={0};
+	dp[0]=1;
+	lint ways=0;
+	for(int i=1;i<=n;i++)
+	{
+		dp[i]=0;
+		for(int j=1;j<=k;j++)
+		{
+			if(i-j>=0)
+				dp[i]+=dp[i-j];
+		}
+	}
+	return dp[n];
 }
 void solve()
 {
@@ -29,11 +52,11 @@ void solve()
 	{
 		lint n,k,q;
 		string s;
-		char A='A';
-		char B='B';
-		char C='C';
-		cin>>n;
-		towerOfHanoi(n,A,C,B);
+		char c;
+		cin>>n>>k;
+		lint dp[100]={0};
+		cout<<ladders_BottomUp(n,k)<<endl;
+		
 	}
 }
 int main()
