@@ -13,6 +13,14 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
+lint numberofWays(lint n,lint dp[])
+{
+	if(n==1 ||n==0)
+		return 1;	
+	if(dp[n]!=-1)
+		return dp[n];
+	return dp[n]=((numberofWays(n-1,dp))%mod+((n-1)*numberofWays(n-2,dp))%mod)%mod;
+}
 void solve()
 {
 	lint t;
@@ -23,12 +31,13 @@ void solve()
 		string s;
 		char c;
 		cin>>n;
-		lint a[n];
-		for(int i=0;i<n;i++)
-			cin>>a[i];
+		lint dp[101];
+		for(int i=0;i<101;i++)
+			dp[i]=-1;
+		cout<<numberofWays(n,dp)<<endl;
+		
 	}
 }
-
 int main()
 {
 	ios_base::sync_with_stdio(false);
@@ -37,7 +46,6 @@ int main()
 		freopen("input.txt","r",stdin);
 		freopen("output.txt","w",stdout);
 	#endif
-	
 	
 	solve();
 }
