@@ -13,6 +13,16 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
+lint dp[101][101];
+lint optimalAns(lint a[],lint n,lint i,lint j)
+{
+	//Base Case
+	if(i>j)
+		return 0;
+	if(dp[i][j]!=-1)
+		return dp[i][j];
+	return dp[i][j]=max(a[i]+min(optimalAns(a,n,i+1,j-1),optimalAns(a,n,i+2,j)),a[j]+min(optimalAns(a,n,i+1,j-1),optimalAns(a,n,i,j-2)));
+}
 void solve()
 {
 	lint t;
@@ -26,6 +36,8 @@ void solve()
 		lint a[n];
 		for(int i=0;i<n;i++)
 			cin>>a[i];
+		memset(dp,-1,sizeof(dp));
+		cout<<optimalAns(a,n,0,n-1)<<endl;
 	}
 }
 
