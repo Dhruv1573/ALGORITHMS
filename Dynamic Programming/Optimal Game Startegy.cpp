@@ -1,3 +1,9 @@
+	/*
+
+		Author :- Dhruv Kumar
+		Amity University jaipur
+
+	*/
 #include<bits/stdc++.h>
 using namespace std;
 #define lint long long int
@@ -13,6 +19,7 @@ using namespace std;
 #define testcase(t) for(int i=0;i<t;i++)
 #define endl "\n"
 #define space " "
+
 lint dp[101][101];
 lint optimalAns(lint a[],lint n,lint i,lint j)
 {
